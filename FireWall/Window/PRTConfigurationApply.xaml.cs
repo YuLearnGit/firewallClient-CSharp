@@ -17,7 +17,7 @@ namespace FireWall
     /// <summary>
     /// PRTConfigurationApply.xaml 的交互逻辑
     /// </summary>
-    public partial class PRTConfigurationApply : Window
+    public partial class PRTConfigurationApply 
     {
         Thread PRTApplyThread;
         public PRTConfigurationApply()

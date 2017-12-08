@@ -12,7 +12,7 @@ namespace FireWall
     /// <summary>
     /// UserMessageBox.xaml 的交互逻辑
     /// </summary>
-    public partial class UserMessageBox : Window
+    public partial class UserMessageBox 
     {
         public UserMessageBox()
         {

@@ -20,7 +20,7 @@ namespace FireWall
     /// <summary>
     /// PRTConfigurationDetail.xaml 的交互逻辑
     /// </summary>
-    public partial class PRTConfigurationDetail : Window
+    public partial class PRTConfigurationDetail 
     {
         public PRTConfigurationDetail()
         {

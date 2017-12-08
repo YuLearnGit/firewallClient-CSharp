@@ -17,7 +17,7 @@ namespace FireWall
     /// <summary>
     /// WHLConfigurationDetail.xaml 的交互逻辑
     /// </summary>
-    public partial class WHLConfigurationDetail : Window
+    public partial class WHLConfigurationDetail 
     {
         public WHLConfigurationDetail()
         {

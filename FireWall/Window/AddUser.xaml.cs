@@ -19,7 +19,7 @@ namespace FireWall
     /// <summary>
     /// AddUser.xaml 的交互逻辑
     /// </summary>
-    public partial class AddUser : Window
+    public partial class AddUser 
     {
         public AddUser()
         {

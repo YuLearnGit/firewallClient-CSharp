@@ -22,7 +22,7 @@ namespace FireWall
     /// <summary>
     /// LoginWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class LoginWindow 
     {
         private bool flag;
         public string iniPath = AppDomain.CurrentDomain.BaseDirectory + "Settings.ini";//ini文件路径
@@ -228,7 +228,8 @@ namespace FireWall
                         this.Dispatcher.BeginInvoke(new Action(() =>
                         {
                             Log.addlog(StaticGlobal.UserID, "用户登录", 0);
-                          
+                            MainWindow mainwindow = new MainWindow();
+                            mainwindow.Show();
                             StaticGlobal.LoginTime =DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                             if (StaticGlobal.UserRole == "SUPER")
                             {
@@ -241,16 +242,13 @@ namespace FireWall
                             else
                             {
                                 UserMessageBox.Show("提示", "您当前身份为:游客！");
-                            }
-                            
+                            } 
+                            this.Close();
                             if (StaticGlobal.firstloginflag == true)
                             {
                                 DataBaseSettingWindow dbsettingwindow = new DataBaseSettingWindow();
                                 dbsettingwindow.Show();
                             }
-                            MainWindow mainwindow = new MainWindow();
-                            mainwindow.Show();
-                            this.Close();
                         }));
                         t.Abort();
                     }));

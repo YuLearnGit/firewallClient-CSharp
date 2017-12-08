@@ -12,7 +12,7 @@ namespace FireWall
     /// <summary>
     /// FireWallConfigurationApply.xaml 的交互逻辑
     /// </summary>
-    public partial class FireWallConfigurationApply : Window
+    public partial class FireWallConfigurationApply 
     {
         Thread ApplyThread;
 

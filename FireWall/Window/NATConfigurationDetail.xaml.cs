@@ -17,7 +17,7 @@ namespace FireWall
     /// <summary>
     /// NATConfigurationDetail.xaml 的交互逻辑
     /// </summary>
-    public partial class NATConfigurationDetail : Window
+    public partial class NATConfigurationDetail 
     {
         public NATConfigurationDetail()
         {

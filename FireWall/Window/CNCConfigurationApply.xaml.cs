@@ -17,7 +17,7 @@ namespace FireWall
     /// <summary>
     /// CNCConfigurationApply.xaml 的交互逻辑
     /// </summary>
-    public partial class CNCConfigurationApply : Window
+    public partial class CNCConfigurationApply 
     {
         Thread CNCApplyThread;
         public CNCConfigurationApply()

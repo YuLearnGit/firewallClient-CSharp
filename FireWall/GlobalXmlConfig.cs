@@ -38,6 +38,9 @@ namespace FireWall
 
             //第一次使用软件标志
             StaticGlobal.firstloginflag = globalconfig.LoginSettings[0].firstloginflag;
+
+            //设备IP扫描范围配置
+            StaticGlobal.ScanIP = globalconfig.ScanIPConfig[0].scanip;
         }
 
     }

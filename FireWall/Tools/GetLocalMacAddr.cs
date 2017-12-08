@@ -15,28 +15,22 @@ namespace FireWall
         {
             try
             {
-                string mac = null;
+                //string mac = "40-8D-5C-08-53-A7";
+                string mac = "";
                 ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
                 ManagementObjectCollection moc = mc.GetInstances();
 
                 foreach (ManagementObject mo in moc)
                 {
-
                     if ((bool)mo["IPEnabled"] == true)
                     {
-                        string serverName = mo["ServiceName"].ToString();
-                        if (serverName.ToLower().Contains("vmnetadapter") || serverName.ToLower().Contains("ppoe") ||
-                            serverName.ToLower().Contains("nic"))
-                        { continue; }
-                        else
-                            mac = mo["MacAddress"].ToString();
-                        mo.Dispose();
+                        mac = mo["MacAddress"].ToString();
                         break;
                     }
                 }
+
                 moc = null;
                 mc = null;
-
                 return mac;
             }
             catch

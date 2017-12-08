@@ -88,6 +88,9 @@
     <Compile Include="interface\ISTDRulesManage.cs" />
     <Compile Include="RuleDataTables\PropertyDataTble.cs" />
     <Compile Include="RuleDataTables\STDRuleDataTable.cs" />
+    <Compile Include="Window\AddIPScanRange.xaml.cs">
+      <DependentUpon>AddIPScanRange.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\STDConfigurationApply.xaml.cs">
       <DependentUpon>STDConfigurationApply.xaml</DependentUpon>
     </Compile>
@@ -221,6 +224,10 @@
     </Compile>
     <Compile Include="XmlHelper.cs" />
     <Compile Include="XmlSerializationHelper.cs" />
+    <Page Include="Window\AddIPScanRange.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Window\STDConfigurationApply.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -451,6 +458,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="image\ProgressBar.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\tree.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\scan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="image\write.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

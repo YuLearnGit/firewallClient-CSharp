@@ -18,7 +18,7 @@ namespace FireWall
     /// <summary>
     /// DataBaseSettingWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class DataBaseSettingWindow : Window
+    public partial class DataBaseSettingWindow 
     {
         public DataBaseSettingWindow()
         {

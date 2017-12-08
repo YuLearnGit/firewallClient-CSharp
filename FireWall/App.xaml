@@ -43,6 +43,10 @@
             <ImageBrush x:Key="MaximizeButtonBrush" ImageSource="image/maximize.png"/>
             <ImageBrush x:Key="MinimizeButtonBrush" ImageSource="image/minimize.png"/>
             <ImageBrush x:Key="RestoreButtonBrush" ImageSource="image/restore.png"/>
+            <ImageBrush x:Key="IPDeleteButtonBrush" ImageSource="image/delete.png"/>
+            <ImageBrush x:Key="ScanButtonBrush" ImageSource="image/scan.png"/>
+            <ImageBrush x:Key="WriteButtonBrush" ImageSource="image/write.png"/>
+
 
         </ResourceDictionary>
     </Application.Resources>

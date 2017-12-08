@@ -17,7 +17,7 @@ namespace FireWall
     /// <summary>
     /// CNCConfigurationDetail.xaml 的交互逻辑
     /// </summary>
-    public partial class CNCConfigurationDetail : Window
+    public partial class CNCConfigurationDetail 
     {
         public CNCConfigurationDetail()
         {

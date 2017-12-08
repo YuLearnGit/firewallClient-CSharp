@@ -20,7 +20,7 @@ namespace FireWall
     /// <summary>
     /// FireWallConfigurationDetail.xaml 的交互逻辑
     /// </summary>
-    public partial class FireWallConfigurationDetail : Window
+    public partial class FireWallConfigurationDetail
     {
         public FireWallConfigurationDetail()
         {

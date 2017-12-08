@@ -55,7 +55,7 @@ namespace FireWall
                     conn.Open();
                     MySqlCommand cmd = new MySqlCommand(CommandText, conn);
                     cmd.ExecuteNonQuery();
-                    //读取全局配置信息
+                    //保存全局配置信息
                     XmlSerializationHelper configContext = new XmlSerializationHelper("Config");
                     GlobalConfig globalconfig = configContext.Get<GlobalConfig>();
 

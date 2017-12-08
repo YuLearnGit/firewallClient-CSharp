@@ -1,4 +1,5 @@
 ﻿using DragDrop;
+using FireWall.Window;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -32,18 +33,23 @@ namespace FireWall
         {
             InitializeComponent();
             //ScanlistBox.ItemContainerStyle = this.FindResource("SimpleListBoxItemFireWall") as Style;
+
         }
 
         //扫描按键事件
         private void Scanbutton_Click(object sender, RoutedEventArgs e)
         {
-            scanstarttext = ScanIPStarttextBox_1.Text + "." + ScanIPStarttextBox_2.Text + "." + ScanIPStarttextBox_3.Text + "." + ScanIPStarttextBox_4.Text;
-            scanendtext = ScanIPEndtextBox_1.Text + "." + ScanIPEndtextBox_2.Text + "." + ScanIPEndtextBox_3.Text + "." + ScanIPEndtextBox_4.Text;
-            IPAddress ip;
-            if (IPAddress.TryParse(scanstarttext, out ip) && IPAddress.TryParse(scanendtext, out ip))
+            string[] Array2;
+            string[] Array3;
+            Array2 = StaticGlobal.ScanIP.Split('+');
+            for(int i = 0; i < Array2.Length; i++)
             {
-                if ((Convert.ToInt16(ScanIPStarttextBox_1.Text) == Convert.ToInt16(ScanIPEndtextBox_1.Text)) && (Convert.ToInt16(ScanIPStarttextBox_2.Text) == Convert.ToInt16(ScanIPEndtextBox_2.Text)) && (Convert.ToInt16(ScanIPStarttextBox_3.Text) == Convert.ToInt16(ScanIPEndtextBox_3.Text)) && (Convert.ToInt16(ScanIPStarttextBox_4.Text) <= Convert.ToInt16(ScanIPEndtextBox_4.Text)))
+                if(ScanIPrangeBox.SelectedItem.ToString() == "System.Windows.Controls.ListBoxItem: " + Array2[i])
                 {
+                    Array3 = Array2[i].Split('-');
+                    scanstarttext = Array3[0];
+                    scanendtext = Array3[1];
+                    IPAddress ip;
                     //MainWindow MW = (MainWindow)Application.Current.Windows[0];
                     //MW.MainBox.Background = new SolidColorBrush(Colors.Gray);
                     //扫描线程开启
@@ -52,9 +58,7 @@ namespace FireWall
                     ScanThread.Start();
                     //MW.MainBox.Background = new SolidColorBrush(Color.FromArgb(0xFF,0x2D,0x2D,0x2D));
                 }
-                else UserMessageBox.Show("提示", "请输入正确的范围！");
             }
-            else UserMessageBox.Show("提示", "请输入正确的IP！");
         }
 
         //扫描线程
@@ -107,6 +111,11 @@ namespace FireWall
 
                     Dispatcher.Invoke(new Action(() =>
                     {
+                        ListBoxItem item1 = new ListBoxItem();
+                        item1.Content = scanstarttext + "-" + scanendtext;
+                        item1.Style = this.FindResource("SimpleListBoxItemIPScanRange") as Style;
+                        ScanlistBox.Items.Add(item1);
+
                         ListBoxItem item = new ListBoxItem();
                         item.Content = "防火墙  MAC: " + dr[1];
                         item.Style = this.FindResource("SimpleListBoxItemFireWall") as Style;
@@ -125,6 +134,11 @@ namespace FireWall
                 {
                     Dispatcher.Invoke(new Action(() =>
                     {
+                        ListBoxItem item1 = new ListBoxItem();
+                        item1.Content = scanstarttext + "-" + scanendtext;
+                        item1.Style = this.FindResource("SimpleListBoxItemIPScanRange") as Style;
+                        ScanlistBox.Items.Add(item1);
+
                         ListBoxItem item = new ListBoxItem();
                         item.Content = dr[4] + "  IP: " + dr[2];
                         item.Style = this.FindResource("SimpleListBoxItemPLC") as Style;
@@ -337,7 +351,7 @@ namespace FireWall
         //双击事件
         private void DoubleClick(object sender, MouseButtonEventArgs e)
         {
-           bool add_flag =true;
+            bool add_flag =true;
             var selectedItem = VisualUpwardSearch<TreeViewItem>(e.OriginalSource as DependencyObject) as TreeViewItem;
             if (selectedItem != null && selectedItem.Header.ToString().Contains("防火墙"))
             {
@@ -453,98 +467,6 @@ namespace FireWall
             }
         }
 
-        //屏蔽中文输入和非法字符粘贴输入以及判断IP输入是否合法
-        private void textchanged(object sender, TextChangedEventArgs e)
-        {
-            //屏蔽中文输入和非法字符粘贴输入
-            TextBox textBox = sender as TextBox;
-            TextChange[] change = new TextChange[e.Changes.Count];
-            e.Changes.CopyTo(change, 0);
-            int offset = change[0].Offset;
-            if (change[0].AddedLength > 0)
-            {
-                double num = 0;
-                if (!Double.TryParse(textBox.Text, out num) || textBox.Text.Contains("e") || textBox.Text.Contains(".") || textBox.Text.Contains(","))
-                {
-                    textBox.Text = textBox.Text.Remove(offset, change[0].AddedLength);
-                    textBox.Select(offset, 0);
-                }
-            }
-            if (textBox.Text != "")
-            {
-                if (Convert.ToInt16(textBox.Text) >= 0)
-                {
-                    textBox.Text = Convert.ToString(Convert.ToInt16(textBox.Text));
-                    textBox.SelectionStart = textBox.Text.Length;
-                }
-                if (Convert.ToInt16(textBox.Text) > 255)
-                {
-                    textBox.Text = Convert.ToString(255);
-                    textBox.SelectionStart = textBox.Text.Length;
-                }
-            }
-            if (textBox == ScanIPStarttextBox_1)
-            {
-                ScanIPEndtextBox_1.Text = ScanIPStarttextBox_1.Text;
-            }
-            if (textBox == ScanIPEndtextBox_1)
-            {
-                ScanIPStarttextBox_1.Text = ScanIPEndtextBox_1.Text;
-            }
-            if (textBox == ScanIPStarttextBox_2)
-            {
-                ScanIPEndtextBox_2.Text = ScanIPStarttextBox_2.Text;
-            }
-            if (textBox == ScanIPEndtextBox_2)
-            {
-                ScanIPStarttextBox_2.Text = ScanIPEndtextBox_2.Text;
-            }
-            if (textBox == ScanIPStarttextBox_3)
-            {
-                ScanIPEndtextBox_3.Text = ScanIPStarttextBox_3.Text;
-            }
-            if (textBox == ScanIPEndtextBox_3)
-            {
-                ScanIPStarttextBox_3.Text = ScanIPEndtextBox_3.Text;
-            }
-        }
-
-
-        //只能输入数字
-        private void keydown(object sender, KeyEventArgs e)
-        {
-            TextBox txt = sender as TextBox;
-            //屏蔽非法按键
-            if (txt == ScanIPStarttextBox_1 || txt == ScanIPEndtextBox_1)
-            {
-                if ((e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || (e.Key >= Key.D0 && e.Key <= Key.D9) || e.Key == Key.Tab)
-                {
-                    if (txt.Text == "" && (e.Key == Key.NumPad0 || e.Key == Key.D0))
-                    {
-                        e.Handled = true;
-                        return;
-                    }
-                    e.Handled = false;
-                }
-                else
-                {
-                    e.Handled = true;
-                }
-            }
-            else
-            {
-                if ((e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || (e.Key >= Key.D0 && e.Key <= Key.D9) || e.Key == Key.Tab || e.Key == Key.Enter)
-                {
-                    e.Handled = false;
-                }
-                else
-                {
-                    e.Handled = true;
-                }
-            }
-        }
-
-
         //显示规则grid控件    
 
         private void FirsttabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -567,6 +489,81 @@ namespace FireWall
             }
         }
 
+        //设备扫描IP范围删除
+        private void IPDeletButton_Click(object sender, RoutedEventArgs e)
+        {
+            string[] Array1;
+            Array1 = StaticGlobal.ScanIP.Split('+');
+            string[] Array2 = new string[Array1.Length - 1];
+            int darray = ScanIPrangeBox.SelectedIndex;
+            if (StaticGlobal.ScanIP != "")
+            {
+                int j = 0;
+                while(j < darray)
+                {
+                    Array2[j] = Array1[j];
+                    j++;
+                }
+                while (darray < Array1.Length -1)
+                {
+                    Array2[darray] = Array1[darray + 1];
+                    darray++;
+                }
+                string NewIP = Array2[0];
+                for (int i = 1; i < Array2.Length; i++)
+                {
+                    NewIP = NewIP + "+" + Array2[i];
+                }
+                StaticGlobal.ScanIP = NewIP;
+                ScanIPrangeBox.SelectedItem = ScanIPrangeBox.Items[0];
+            }
+            //将设备扫描范围存入配置文件
+            XmlSerializationHelper configContext = new XmlSerializationHelper("Config");
+            GlobalConfig globalconfig = configContext.Get<GlobalConfig>();
+            globalconfig.ScanIPConfig[0].scanip = StaticGlobal.ScanIP;
+            configContext.Save(globalconfig);
+            StaticGlobal.ScanIP = globalconfig.ScanIPConfig[0].scanip;
 
+            ScanIPrangeBox.Items.Remove(ScanIPrangeBox.SelectedItem);
+        }
+
+        //IP范围填写按钮
+        private void Writebutton_Click(object sender, RoutedEventArgs e)
+        {
+            AddIPScanRange addIPscanrange = new AddIPScanRange();
+            addIPscanrange.ShowDialog();
+            ScanIPrangeBox.Items.Clear();
+            if (StaticGlobal.ScanIP != "")
+            {
+                string[] Array1;
+                Array1 = StaticGlobal.ScanIP.Split('+');
+                for (int i = 0; i < Array1.Length; i++)
+                {
+                    ListBoxItem item = new ListBoxItem();
+                    item.Content = Array1[i];
+                    item.Style = this.FindResource("SimpleListBoxItemIPScanRange") as Style;
+                    ScanIPrangeBox.Items.Add(item);
+                }
+
+            }
+        }
+
+        //IP扫描范围初始化
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(StaticGlobal.ScanIP != "")
+            {
+                string[] Array1;
+                Array1 = StaticGlobal.ScanIP.Split('+');
+                for (int i = 0; i < Array1.Length; i++)
+                {
+                    ListBoxItem item = new ListBoxItem();
+                    item.Content = Array1[i];
+                    item.Style = this.FindResource("SimpleListBoxItemIPScanRange") as Style;
+                    ScanIPrangeBox.Items.Add(item);
+                }
+                ScanIPrangeBox.SelectedItem = ScanIPrangeBox.Items[0];
+            }
+        }
     }
 }

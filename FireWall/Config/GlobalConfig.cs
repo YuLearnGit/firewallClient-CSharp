@@ -15,6 +15,8 @@ namespace FireWall
         public List<Parameter> Parameters;
 
         public List<LoginSetting> LoginSettings;
+
+        public List<ScanIPConfig> ScanIPConfig;
     }
 
     [Serializable]
@@ -45,5 +47,12 @@ namespace FireWall
     {
         [XmlAttribute("firstloginflag")]
         public Boolean firstloginflag { get; set; }
+    }
+
+    [Serializable]
+    public class ScanIPConfig
+    {
+        [XmlAttribute("scanip")]
+        public string scanip { get; set; }
     }
 }

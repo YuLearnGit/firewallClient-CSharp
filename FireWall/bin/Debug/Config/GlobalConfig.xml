@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-16"?>
 <GlobalConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <DataBaseConfigs>
-    <DataBaseConfig database="firewallclient" datasource="localhost" userid="root" password="123456" />
+    <DataBaseConfig database="firewall_219" datasource="localhost" userid="root" password="" />
   </DataBaseConfigs>
   <Parameters>
     <Parameter functioncodenum="21" />
@@ -9,4 +9,7 @@
   <LoginSettings>
     <LoginSetting firstloginflag="false" />
   </LoginSettings>
+  <ScanIPConfig>
+    <ScanIPConfig scanip="192.168.10.136-192.168.10.138+172.168.10.130-172.168.10.139+172.16.10.136-172.16.10.138" />
+  </ScanIPConfig>
 </GlobalConfig>

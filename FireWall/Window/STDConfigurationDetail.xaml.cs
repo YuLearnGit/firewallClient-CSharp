@@ -17,7 +17,7 @@ namespace FireWall
     /// <summary>
     /// STDConfigurationDetail.xaml 的交互逻辑
     /// </summary>
-    public partial class STDConfigurationDetail : Window
+    public partial class STDConfigurationDetail 
     {
         public STDConfigurationDetail()
         {

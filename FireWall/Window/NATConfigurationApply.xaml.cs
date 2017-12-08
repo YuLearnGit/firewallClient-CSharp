@@ -18,7 +18,7 @@ namespace FireWall
     /// <summary>
     /// NATConfigurationApply.xaml 的交互逻辑
     /// </summary>
-    public partial class NATConfigurationApply : Window
+    public partial class NATConfigurationApply 
     {
         DBOperation db_operate = new DBOperation();
         Thread NATApplyThread;

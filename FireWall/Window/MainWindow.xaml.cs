@@ -20,7 +20,7 @@ namespace FireWall
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow 
     {
         public MainContent MCC = new MainContent();
         public LogControl LC = new LogControl();
@@ -51,6 +51,7 @@ namespace FireWall
             SC.Visibility = Visibility.Collapsed;
             UMC.Visibility = Visibility.Collapsed;
             SSC.Visibility = Visibility.Collapsed;
+
         }
         void GetDateAndTime()
         {
@@ -117,6 +118,7 @@ namespace FireWall
             statisticsimage.Visibility = Visibility.Collapsed;
             usermanagementimage.Visibility = Visibility.Collapsed;
             systemsettingimage.Visibility = Visibility.Collapsed;
+
         }
 
         //实时数据按钮

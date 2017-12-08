@@ -10,7 +10,7 @@ namespace FireWall
     /// <summary>
     /// WHLConfigurationApply.xaml 的交互逻辑
     /// </summary>
-    public partial class WHLConfigurationApply : Window
+    public partial class WHLConfigurationApply 
     {
         Thread WHLApplyThread;
         public WHLConfigurationApply()

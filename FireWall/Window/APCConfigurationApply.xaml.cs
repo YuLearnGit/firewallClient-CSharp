@@ -17,7 +17,7 @@ namespace FireWall
     /// <summary>
     /// APCConfigurationApply.xaml 的交互逻辑
     /// </summary>
-    public partial class APCConfigurationApply : Window
+    public partial class APCConfigurationApply 
     {
         DB_DataGridbinding APC = new DB_DataGridbinding();
         public APCConfigurationApply()

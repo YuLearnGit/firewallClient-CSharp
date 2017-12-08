@@ -18,7 +18,7 @@ namespace FireWall
     /// <summary>
     /// SetPasswordWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class SetPasswordWindow : Window
+    public partial class SetPasswordWindow 
     {
         public SetPasswordWindow()
         {

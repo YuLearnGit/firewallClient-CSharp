@@ -17,7 +17,7 @@ namespace FireWall
     /// <summary>
     /// ResetIP.xaml 的交互逻辑
     /// </summary>
-    public partial class ResetIPWindow : Window
+    public partial class ResetIPWindow 
     {
         public ResetIPWindow()
         {

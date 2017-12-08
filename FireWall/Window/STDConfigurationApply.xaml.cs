@@ -17,7 +17,7 @@ namespace FireWall
     /// <summary>
     /// STDConfigurationApply.xaml 的交互逻辑
     /// </summary>
-    public partial class STDConfigurationApply : Window
+    public partial class STDConfigurationApply 
     {
         Thread STDApplyThread;
         public STDConfigurationApply()

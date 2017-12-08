@@ -81,5 +81,8 @@ namespace FireWall
 
         //进入系统的时间，即实时数据的起点
         public static string LoginTime;
+
+        //设备扫描IP范围
+        public static string ScanIP;
     }
 }

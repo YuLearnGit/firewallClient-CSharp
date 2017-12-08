@@ -13,47 +13,47 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FireWall
+namespace FireWall.Window
 {
     /// <summary>
-    /// RenameWindow.xaml 的交互逻辑
+    /// AddIPScanRange.xaml 的交互逻辑
     /// </summary>
-    public partial class RenameWindow 
+    public partial class AddIPScanRange 
     {
-        public RenameWindow()
+        public AddIPScanRange()
         {
             InitializeComponent();
         }
 
-        /*----------------------------------------------------------------
-        //函数说明：加载窗口//
-        //输入：无//
-        //输出：无//
-        //----------------------------------------------------------------*/
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            TypeBinding();
+
         }
 
-        private void TypeBinding()
-        {
-            string[] types = {"asus","BECKOFF","未知设备" };
-            PLCtype.ItemsSource = types;
-        }
-
+        string scanstarttext = "";
+        string scanendtext = "";
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
+            scanstarttext = ScanIPStarttextBox_1.Text + "." + ScanIPStarttextBox_2.Text + "." + ScanIPStarttextBox_3.Text + "." + ScanIPStarttextBox_4.Text;
+            scanendtext = ScanIPEndtextBox_1.Text + "." + ScanIPEndtextBox_2.Text + "." + ScanIPEndtextBox_3.Text + "." + ScanIPEndtextBox_4.Text;
             IPAddress ip;
-            string IPtext = IPtextBox_1.Text + "." + IPtextBox_2.Text + "." + IPtextBox_3.Text + "." + IPtextBox_4.Text;
-            if (IPAddress.TryParse(IPtext, out ip) && PLCtype.Text !="")
+            if (IPAddress.TryParse(scanstarttext, out ip) && IPAddress.TryParse(scanendtext, out ip))
             {
-                StaticGlobal.newPLC = PLCtype.Text + "  IP: " + IPtext;
-                this.Close();
+                if ((Convert.ToInt16(ScanIPStarttextBox_1.Text) == Convert.ToInt16(ScanIPEndtextBox_1.Text)) && (Convert.ToInt16(ScanIPStarttextBox_2.Text) == Convert.ToInt16(ScanIPEndtextBox_2.Text)) && (Convert.ToInt16(ScanIPStarttextBox_3.Text) == Convert.ToInt16(ScanIPEndtextBox_3.Text)) && (Convert.ToInt16(ScanIPStarttextBox_4.Text) <= Convert.ToInt16(ScanIPEndtextBox_4.Text)))
+                {
+                    //将设备扫描范围存入配置文件
+                    XmlSerializationHelper configContext = new XmlSerializationHelper("Config");
+                    GlobalConfig globalconfig = configContext.Get<GlobalConfig>();
+                    string Awarry = globalconfig.ScanIPConfig[0].scanip;
+                    globalconfig.ScanIPConfig[0].scanip = Awarry + "+" + scanstarttext + "-" + scanendtext;
+                    configContext.Save(globalconfig);
+                    StaticGlobal.ScanIP = globalconfig.ScanIPConfig[0].scanip;
+                    this.Close(); 
+
+                }
+                else UserMessageBox.Show("提示", "请输入正确的范围！");
             }
-            else
-            {
-                UserMessageBox.Show("提示", "请输入正确的IP地址！");
-            }
+            else UserMessageBox.Show("提示", "请输入正确的IP！");
         }
 
         //屏蔽中文输入和非法字符粘贴输入以及判断IP输入是否合法
@@ -75,7 +75,7 @@ namespace FireWall
             }
             if (textBox.Text != "")
             {
-                if (Convert.ToInt16(textBox.Text) > 0)
+                if (Convert.ToInt16(textBox.Text) >= 0)
                 {
                     textBox.Text = Convert.ToString(Convert.ToInt16(textBox.Text));
                     textBox.SelectionStart = textBox.Text.Length;
@@ -86,6 +86,30 @@ namespace FireWall
                     textBox.SelectionStart = textBox.Text.Length;
                 }
             }
+            if (textBox == ScanIPStarttextBox_1)
+            {
+                ScanIPEndtextBox_1.Text = ScanIPStarttextBox_1.Text;
+            }
+            if (textBox == ScanIPEndtextBox_1)
+            {
+                ScanIPStarttextBox_1.Text = ScanIPEndtextBox_1.Text;
+            }
+            if (textBox == ScanIPStarttextBox_2)
+            {
+                ScanIPEndtextBox_2.Text = ScanIPStarttextBox_2.Text;
+            }
+            if (textBox == ScanIPEndtextBox_2)
+            {
+                ScanIPStarttextBox_2.Text = ScanIPEndtextBox_2.Text;
+            }
+            if (textBox == ScanIPStarttextBox_3)
+            {
+                ScanIPEndtextBox_3.Text = ScanIPStarttextBox_3.Text;
+            }
+            if (textBox == ScanIPEndtextBox_3)
+            {
+                ScanIPStarttextBox_3.Text = ScanIPEndtextBox_3.Text;
+            }
         }
 
 
@@ -94,7 +118,7 @@ namespace FireWall
         {
             TextBox txt = sender as TextBox;
             //屏蔽非法按键
-            if (txt == IPtextBox_1)
+            if (txt == ScanIPStarttextBox_1 || txt == ScanIPEndtextBox_1)
             {
                 if ((e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9) || (e.Key >= Key.D0 && e.Key <= Key.D9) || e.Key == Key.Tab)
                 {
@@ -121,6 +145,11 @@ namespace FireWall
                     e.Handled = true;
                 }
             }
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

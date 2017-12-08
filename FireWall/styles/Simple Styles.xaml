@@ -475,8 +475,47 @@
                         </Grid.ColumnDefinitions>
                         <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
                             <DockPanel Height="40" Width="290" >
-                                <Image Source="/FireWall;component/image/firewall.png" Width="34" Height="34" VerticalAlignment="Center" DockPanel.Dock="Left"/>
-                                <Image Source="/FireWall;component/image/null.png" Width="34" Height="34" VerticalAlignment="Center"/>
+                                <Image Source="/FireWall;component/image/null.png" Width="34" Height="34" VerticalAlignment="Center" DockPanel.Dock="Left"/>
+                                <Image Source="/FireWall;component/image/firewall.png" Width="34" Height="34" VerticalAlignment="Center"/>
+                                <ContentPresenter DockPanel.Dock="Right" Width="222" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </DockPanel>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+
+                        <!-- Change IsSelected SelectedBackgroundBrush to set the selection color for the items -->
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Background" Value="#FF007ACC" TargetName="Border"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+
+    <Style x:Key="SimpleListBoxItemIPScanRange" d:IsControlPart="True" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="Foreground" Value="{DynamicResource FontBrush}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                            <DockPanel Height="40" Width="270" >
+                                <Image Source="/FireWall;component/image/tree.png" Width="34" Height="34" VerticalAlignment="Center"/>
                                 <ContentPresenter DockPanel.Dock="Right" Width="222" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             </DockPanel>
                         </Border>
@@ -547,7 +586,8 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                            <DockPanel Height="40" Width="290">
+                            <DockPanel Height="40" Width="325">
+                                <Image Source="/FireWall;component/image/null.png" Width="34" Height="34" VerticalAlignment="Center" DockPanel.Dock="Left"/>
                                 <Image Source="/FireWall;component/image/null.png" Width="34" Height="34" VerticalAlignment="Center" DockPanel.Dock="Left"/>
                                 <Image Source="/FireWall;component/image/PLC.png" Width="34" Height="34" VerticalAlignment="Center"/>
                                 <ContentPresenter DockPanel.Dock="Right" Width="222" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -569,6 +609,8 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    
     <Style x:Key="ListBoxItemPLC" d:IsControlPart="True" TargetType="{x:Type ListBoxItem}">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
